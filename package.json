@@ -1,0 +1,28 @@
+{
+  "name": "astro-surreal",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "src",
+    "index.ts"
+  ],
+  "keywords": [
+    "astro-component"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "astro": "^7.3.1"
+  },
+  "peerDependencies": {
+    "astro": "^7.0.0"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
