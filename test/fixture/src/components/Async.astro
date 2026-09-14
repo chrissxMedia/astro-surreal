@@ -1,0 +1,15 @@
+---
+const { id, reject = false } = Astro.props;
+---
+
+<div data-async={id} data-reject={reject}></div>
+<script>
+  import { me } from "astro-surreal";
+  const root = me();
+  root.dataset.starts = String(Number(root.dataset.starts || 0) + 1);
+  await new Promise((resolve) =>
+    document.addEventListener("fixture:resume", resolve, { once: true }),
+  );
+  if (root.dataset.reject === "true") throw new Error("fixture rejection");
+  root.dataset.done = "yes";
+</script>
