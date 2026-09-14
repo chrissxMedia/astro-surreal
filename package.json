@@ -6,7 +6,12 @@
   "version": "0.0.1",
   "type": "module",
   "exports": {
-    ".": "./index.ts",
+    ".": {
+      "types": "./index.ts",
+      "browser": "./src/helpers.ts",
+      "default": "./index.ts"
+    },
+    "./types": "./src/types.ts",
     "./runtime": "./src/runtime.ts"
   },
   "files": [
