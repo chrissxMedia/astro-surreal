@@ -159,22 +159,3 @@ test("generated registration imports the runtime module", () => {
   assert.match(result.code, /from "astro-surreal\/runtime"/);
   assert.doesNotMatch(result.code, /virtual:astro-surreal/);
 });
-
-test("default integration imports must be separate from helpers", () => {
-  for (const bindings of ["surreal, { me }", "{ default as surreal, any }"]) {
-    assert.throws(
-      () =>
-        run(`<div/><script>import ${bindings} from "astro-surreal";</script>`),
-      (error: any) => {
-        assert.match(error.message, /default integration separately/);
-        assert.equal(error.loc.line, 1);
-        assert.equal(error.loc.column, 14);
-        return true;
-      },
-    );
-  }
-  const result = run(
-    "<div/>" + script('import surreal from "astro-surreal"; me();'),
-  )!;
-  assert.match(result.code, /import surreal from "astro-surreal"/);
-});

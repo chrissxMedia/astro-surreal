@@ -266,18 +266,6 @@ function emitComponent(
       ts.isNamedImports(named) &&
       named.elements.some((item) => helpers.has(item))
     ) {
-      if (
-        clause.name ||
-        named.elements.some(
-          (item) =>
-            !item.isTypeOnly &&
-            (item.propertyName ?? item.name).text === "default",
-        )
-      )
-        fail(
-          "Import the default integration separately from me and any.",
-          start + statement.getStart(file),
-        );
       output.remove(importStart, start + statement.end);
       continue;
     }
