@@ -1,0 +1,15 @@
+---
+import Counter from "../../src/components/Counter.astro";
+import Selectors from "../../src/components/Selectors.astro";
+import Async from "../../src/components/Async.astro";
+---
+
+<html>
+  <head><title>CSP fixture</title></head><body>
+    <Counter id="one" /><Counter id="two" nested />
+    <Selectors /><Async id="reject" reject /><Async id="other" />
+    <script>
+      document.documentElement.dataset.ordinary = "yes";
+    </script>
+  </body>
+</html>

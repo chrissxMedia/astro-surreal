@@ -1,0 +1,11 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Counter from "../components/Counter.astro";
+import Late from "../components/Late.astro";
+---
+
+<html>
+  <head><ClientRouter /></head><body>
+    <Counter id="one" persist /><Counter id="new" /><Late /><a href="/">Back</a>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<section id="selectors">
+  <button>Events</button>
+  <span></span>
+  <div data-register-late></div>
+  <div data-register-failure></div>
+</section>
+<script>
+  import { me, any } from "astro-surreal";
+  import { register } from "astro-surreal/runtime";
+  const root = me();
+  const button = root.querySelector("button")!;
+  function check(condition: boolean) {
+    if (!condition) throw new Error("selector check failed");
+  }
+  check(me() === root && any()[0] === root && typeof any().on === "function");
+  check(me("#selectors") === null && any("#selectors").length === 0);
+  check(me(button) === button && any(button)[0] === button);
+  check(me([button]) === button && any([button])[0] === button);
+  check(me(root.querySelectorAll("button")) === button);
+  check(any(root.querySelectorAll("button"))[0] === button);
+  check(me([]) === null && any([]).length === 0);
+  check(me(".missing") === null && any(".missing").length === 0);
+  check(
+    root.attributes instanceof NamedNodeMap && typeof root.attr === "function",
+  );
+  check(Array.isArray(any().attr("id")));
+  check(!("attributes" in any()) && !("attributes" in me(document)));
+  check(!("off_all" in root) && !("trigger" in root));
+  check(typeof root.offAll === "function" && typeof root.send === "function");
+  for (const tag of ["prev", "previous"]) {
+    const element = document.createElement(tag);
+    root.append(element);
+    check(me(tag) === element && any(tag)[0] === element);
+    element.remove();
+    check(me(tag) === null && any(tag).length === 0);
+  }
+  for (const select of [me, any]) {
+    let helperError: unknown;
+    try {
+      select("-");
+    } catch (error) {
+      helperError = (error as DOMException).name;
+    }
+    check(helperError === "SyntaxError");
+  }
+  let saved: Event;
+  me(button).on("click", (event) => {
+    saved = event;
+    check(me(event) === button && any(event)![0] === button);
+  });
+  button.click();
+  await Promise.resolve();
+  check(me(saved!) === null && any(saved!) === null);
+  root.dataset.checked = "yes";
+  setTimeout(() => {
+    register("data-register-late", "late registration", ({ me }) => {
+      me().dataset.late = "yes";
+    });
+    register("data-register-failure", "synchronous failure", () => {
+      throw new Error("fixture synchronous failure");
+    });
+  }, 30);
+</script>

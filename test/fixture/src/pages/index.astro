@@ -1,0 +1,17 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Counter from "../components/Counter.astro";
+import Selectors from "../components/Selectors.astro";
+import Async from "../components/Async.astro";
+---
+
+<html>
+  <head><ClientRouter /></head><body>
+    <Counter id="one" persist /><Counter id="two" nested />
+    <Selectors /><Async id="reject" reject /><Async id="other" />
+    <a href="/next">Next</a>
+    <script>
+      document.documentElement.dataset.ordinary = "yes";
+    </script>
+  </body>
+</html>

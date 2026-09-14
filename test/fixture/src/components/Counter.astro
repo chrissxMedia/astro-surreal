@@ -1,0 +1,29 @@
+---
+interface Props {
+  id: string;
+  nested?: boolean;
+  persist?: boolean;
+}
+const { id, nested, persist } = Astro.props;
+const props = { "data-test": id };
+---
+
+<div {...props} transition:persist={persist ? id : undefined}>
+  <button class="count">0</button><button class="hide">Hide me</button>
+  {nested && <Astro.self id="nested" />}
+</div>
+<script>
+  import { me, any, type SurrealElement } from "astro-surreal";
+  import MagicString from "magic-string";
+  import { shared } from "../shared";
+  const root: SurrealElement<HTMLElement> = me();
+  root.dataset.version = new MagicString("npm").toString();
+  root.dataset.shared = String(++shared.count);
+  root.dataset.descendants = String(any("button").length);
+  let count: number = 0;
+  me("button")?.on("click", (event) => {
+    me(event)!.textContent = String(++count);
+  });
+  me(".hide")?.on("click", (event) => me(event)?.fadeOut(undefined, 20));
+  root.dataset.ready = "yes";
+</script>
