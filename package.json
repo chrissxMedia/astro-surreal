@@ -23,6 +23,7 @@
     "surreal"
   ],
   "scripts": {
+    "test": "node --test test/transform.test.ts",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
