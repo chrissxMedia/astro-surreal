@@ -13,16 +13,32 @@
     "index.ts"
   ],
   "keywords": [
-    "astro-component"
+    "astro-integration",
+    "surreal"
   ],
-  "scripts": {},
+  "scripts": {
+    "check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
   "devDependencies": {
-    "astro": "^7.3.1"
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.5.0",
+    "astro": "^7.3.1",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "vite": "^8.2.2"
   },
   "peerDependencies": {
-    "astro": "^7.0.0"
+    "astro": "^7.3.1"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "dependencies": {
+    "@astrojs/compiler-rs": "^0.4.0",
+    "magic-string": "^1.2.3",
+    "typescript": "^6.0.3"
   }
 }
