@@ -1,0 +1,42 @@
+---
+import { passProps } from "astro-surreal/plugins/props";
+const { id } = Astro.props;
+const shared = { color: "red" };
+const cyclic: { self?: unknown } = {};
+cyclic.self = cyclic;
+const props = {
+  colors: [shared, { color: "blue" }],
+  shared,
+  cyclic,
+  date: new Date("2026-01-01"),
+  map: new Map([["color", shared]]),
+  missing: undefined,
+};
+---
+
+<section data-flags={id} {...passProps(props)}>
+  <button>Generate</button>
+  <div class="flags"></div>
+  <template>
+    <!-- root -->
+    <div><span>Flag</span></div>
+  </template>
+</section>
+<script>
+  import { me, any } from "astro-surreal";
+  import { checkHelpers } from "../helper-checks";
+  const root = me();
+  const container = me(".flags")!;
+  const template = me("template")!;
+  const { colors } = root.props<{ colors: { color: string }[] }>();
+  me("button")!.onPrevent("click", async (_event, element) => {
+    await Promise.resolve();
+    container.each(colors, template, (clone, item, index) => {
+      clone.styles({ backgroundColor: item.color });
+      clone.dataset.index = String(index);
+    });
+    element.disable();
+  });
+  await checkHelpers(me, any);
+  root.dataset.helpersChecked = "yes";
+</script>

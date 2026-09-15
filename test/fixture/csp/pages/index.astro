@@ -1,4 +1,5 @@
 ---
+import FlagGenerator from "../../src/components/FlagGenerator.astro";
 import Counter from "../../src/components/Counter.astro";
 import Selectors from "../../src/components/Selectors.astro";
 import Async from "../../src/components/Async.astro";
@@ -7,6 +8,7 @@ import Async from "../../src/components/Async.astro";
 <html>
   <head><title>CSP fixture</title></head><body>
     <Counter id="one" /><Counter id="two" nested />
+    <FlagGenerator id="first" /><FlagGenerator id="second" />
     <Selectors /><Async id="reject" reject /><Async id="other" />
     <script>
       document.documentElement.dataset.ordinary = "yes";

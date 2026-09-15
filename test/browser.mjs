@@ -97,6 +97,20 @@ try {
     1,
   );
   assert.equal(await page.locator("html").getAttribute("data-ordinary"), "yes");
+  await page.waitForSelector(
+    '[data-flags="second"][data-helpers-checked="yes"]',
+  );
+  assert.equal(await page.locator('[data-helpers-checked="yes"]').count(), 2);
+  await page.locator('[data-flags="first"] button').click();
+  await page.waitForSelector('[data-flags="first"] .flags > [data-index="1"]');
+  assert.equal(
+    await page.locator('[data-flags="second"] .flags > *').count(),
+    0,
+  );
+  assert.equal(
+    await page.locator('[data-flags="first"] button').isDisabled(),
+    true,
+  );
   if (process.env.CSP !== "1") {
     await page.evaluate(() => {
       window.savedRoot = document.querySelector('[data-test="one"]');
