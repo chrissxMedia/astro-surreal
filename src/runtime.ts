@@ -1,9 +1,14 @@
 import surreal from "./surreal.mjs";
 import { pluginProps } from "./plugins/props.ts";
 import { pluginEach } from "./plugins/each.ts";
+import { pluginEffects } from "./plugins/effects.ts";
 import type { Me, Any } from "./types.ts";
 
-(surreal.plugins as ((node: unknown) => void)[]).push(pluginProps, pluginEach);
+(surreal.plugins as ((node: unknown) => void)[]).push(
+  pluginEffects,
+  pluginProps,
+  pluginEach,
+);
 
 type Initializer = (helpers: { me: Me; any: Any }) => unknown;
 const registry = new Map<
