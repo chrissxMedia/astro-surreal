@@ -50,11 +50,19 @@ me(".unknown")?.onPrevent("click", async (event, element) => {
   element.disable();
   void x;
 });
+const template = document.createElement("template");
+root.each([1, 2] as const, template, (clone, item, index) => {
+  clone.styles({ opacity: String(item + index) });
+});
+// @ts-expect-error Async iteration is unsupported.
+root.each([], template, async () => {});
 const props: Record<string, unknown> = root.props();
 const typedProps: { title: string } = root.props<{ title: string }>();
 for (const target of [buttons, me(document)]) {
   // @ts-expect-error Only elements have props().
   target.props();
+  // @ts-expect-error Only elements have each().
+  target.each([], template, () => {});
 }
 me(document.createElementNS("http://www.w3.org/2000/svg", "svg")).props();
 void [props, typedProps];

@@ -8,6 +8,11 @@ export type SurrealArray<T extends SurrealNode = HTMLElement | SVGElement> =
 
 interface ElementMethods {
   props<P = Record<string, unknown>>(): P;
+  each<Item>(
+    items: readonly Item[],
+    template: HTMLTemplateElement,
+    callback: (clone: SurrealElement, item: Item, index: number) => undefined,
+  ): this;
 }
 
 type AttributeValue = string | number | boolean | null;
