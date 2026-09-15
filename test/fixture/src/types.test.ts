@@ -30,3 +30,23 @@ const collection: SurrealElement<HTMLButtonElement> | null = me(
   document.querySelectorAll("button"),
 );
 void [roots, attributes, getter, value, collection];
+for (const method of ["on", "onPrevent"] as const) {
+  buttons[method]("click", function (event, element) {
+    const x: number = event.clientX;
+    const self: SurrealElement<HTMLButtonElement> = this;
+    const target: HTMLButtonElement | null = event.currentTarget;
+    element.disabled = true;
+    void [x, self, target];
+  });
+  root[method]("custom", (event: CustomEvent<number>, element) => {
+    const detail: number = event.detail;
+    element.disable();
+    void detail;
+  });
+}
+me(".unknown")?.onPrevent("click", async (event, element) => {
+  const x: number = event.clientX;
+  await Promise.resolve();
+  element.disable();
+  void x;
+});

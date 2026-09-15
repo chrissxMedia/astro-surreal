@@ -29,7 +29,7 @@ let $ = { // Convenience for internals.
 
 		// Events.
 		e.on            = (name, f) => { return $.on(e, name, f) }
-		e.off           = (name, f) => { return $.off(e, name, f) }
+		e.onPrevent     = (name, f) => { return $.on(e, name, f, true) }
 		e.offAll        = (name) => { return $.offAll(e, name) }
 		e.disable       = () => { return $.disable(e) }
 		e.enable        = () => { return $.enable(e) }
@@ -130,14 +130,12 @@ let $ = { // Convenience for internals.
 	// Match a sender: if (!event.target.matches(".selector")) return;
 	//	📚️ https://developer.mozilla.org/en-US/docs/Web/API/Event
 	//	✂️ Vanilla: document.querySelector(".thing").addEventListener("click", (e) => { alert("clicked") }
-	on(e, name, f) {
-		if ($.isNodeList(e)) e.forEach(_ => { $.on(_, name, f) })
-		if ($.isNode(e)) e.addEventListener(name, f)
-		return e
-	},
-	off(e, name, f) {
-		if ($.isNodeList(e)) e.forEach(_ => { $.off(_, name, f) })
-		if ($.isNode(e)) e.removeEventListener(name, f)
+	on(e, name, f, prevent=false) {
+		if ($.isNodeList(e)) e.forEach(_ => { $.on(_, name, f, prevent) })
+		if ($.isNode(e)) e.addEventListener(name, function(event) {
+			if (prevent) event.preventDefault()
+			return f.call(this, event, $.sugar(e))
+		})
 		return e
 	},
 	offAll(e) {
@@ -145,7 +143,7 @@ let $ = { // Convenience for internals.
 		if ($.isNode(e)) e.parentNode.replaceChild(e.cloneNode(true), e)
 		return e
 	},
-	// Easy alternative to off(). Disables click, key, submit events.
+	// Disable element(s).
 	disable(e) {
 		if ($.isNodeList(e)) e.forEach(_ => { $.disable(_) })
 		if ($.isNode(e)) e.disabled = true

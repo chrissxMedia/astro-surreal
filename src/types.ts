@@ -1,6 +1,6 @@
 export type SurrealNode = HTMLElement | SVGElement | Document;
 export type SurrealElement<T extends SurrealNode = HTMLElement | SVGElement> =
-  T extends SurrealNode ? T & SurrealMethods<T> : never;
+  T & SurrealMethods<T>;
 export type SurrealArray<T extends SurrealNode = HTMLElement | SVGElement> =
   SurrealElement<T>[] & SurrealMethods<T, true>;
 
@@ -9,6 +9,21 @@ interface AttributeMethod<T, Result> {
   (name: string): Result;
   (name: string, value: AttributeValue): T;
   (values: Record<string, AttributeValue>): T;
+}
+interface EventMethod<T extends SurrealNode, Result> {
+  <
+    K extends string,
+    E extends Event = K extends keyof HTMLElementEventMap
+      ? HTMLElementEventMap[K]
+      : Event,
+  >(
+    name: K,
+    callback: (
+      this: SurrealElement<T>,
+      event: E & { readonly currentTarget: T | null },
+      element: SurrealElement<T>,
+    ) => void,
+  ): Result;
 }
 export interface SurrealMethods<
   T extends SurrealNode,
@@ -29,24 +44,8 @@ export interface SurrealMethods<
   toggle_class(name: string, force?: boolean): this;
   toggleClass(name: string, force?: boolean): this;
   styles(value: string | Partial<CSSStyleDeclaration>): this;
-  on<K extends keyof HTMLElementEventMap>(
-    name: K,
-    callback: (
-      event: HTMLElementEventMap[K] & {
-        readonly currentTarget: T | null;
-      },
-    ) => void,
-  ): this;
-  on(name: string, callback: EventListener): this;
-  off<K extends keyof HTMLElementEventMap>(
-    name: K,
-    callback: (
-      event: HTMLElementEventMap[K] & {
-        readonly currentTarget: T | null;
-      },
-    ) => void,
-  ): this;
-  off(name: string, callback: EventListener): this;
+  on: EventMethod<T, this>;
+  onPrevent: EventMethod<T, this>;
   offAll(name?: string): this;
   disable(): this;
   enable(): this;
