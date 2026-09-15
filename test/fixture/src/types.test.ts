@@ -50,3 +50,11 @@ me(".unknown")?.onPrevent("click", async (event, element) => {
   element.disable();
   void x;
 });
+const props: Record<string, unknown> = root.props();
+const typedProps: { title: string } = root.props<{ title: string }>();
+for (const target of [buttons, me(document)]) {
+  // @ts-expect-error Only elements have props().
+  target.props();
+}
+me(document.createElementNS("http://www.w3.org/2000/svg", "svg")).props();
+void [props, typedProps];

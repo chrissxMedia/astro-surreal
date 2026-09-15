@@ -21,6 +21,7 @@
       "browser": "./src/helpers.ts",
       "default": "./index.ts"
     },
+    "./plugins/props": "./src/plugins/props.ts",
     "./types": "./src/types.ts",
     "./runtime": "./src/runtime.ts"
   },
@@ -56,6 +57,7 @@
   },
   "dependencies": {
     "@astrojs/compiler-rs": "^0.4.0",
+    "devalue": "^5.9.2",
     "magic-string": "^1.2.3",
     "typescript": "^6.0.3"
   }

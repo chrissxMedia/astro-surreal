@@ -1,8 +1,14 @@
 export type SurrealNode = HTMLElement | SVGElement | Document;
 export type SurrealElement<T extends SurrealNode = HTMLElement | SVGElement> =
-  T & SurrealMethods<T>;
+  T &
+    SurrealMethods<T> &
+    ([T] extends [HTMLElement | SVGElement] ? ElementMethods : {});
 export type SurrealArray<T extends SurrealNode = HTMLElement | SVGElement> =
   SurrealElement<T>[] & SurrealMethods<T, true>;
+
+interface ElementMethods {
+  props<P = Record<string, unknown>>(): P;
+}
 
 type AttributeValue = string | number | boolean | null;
 interface AttributeMethod<T, Result> {
