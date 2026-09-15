@@ -1,4 +1,5 @@
 ---
+import FlagGenerator from "../components/FlagGenerator.astro";
 import { ClientRouter } from "astro:transitions";
 import Counter from "../components/Counter.astro";
 import Selectors from "../components/Selectors.astro";
@@ -8,6 +9,7 @@ import Async from "../components/Async.astro";
 <html>
   <head><ClientRouter /></head><body>
     <Counter id="one" persist /><Counter id="two" nested />
+    <FlagGenerator id="first" /><FlagGenerator id="second" />
     <Selectors /><Async id="reject" reject /><Async id="other" />
     <a href="/next">Next</a>
     <script>
