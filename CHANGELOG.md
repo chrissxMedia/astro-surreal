@@ -4,16 +4,16 @@
 
 - Convert the vendored Surreal implementation to TypeScript and infer core method types from it. Remove the separate `types.ts` file.
 - Remove the `astro-surreal/types` export. Import types from `astro-surreal` instead.
-- Remove `Document` support. Only HTML and SVG elements can be decorated. `me(document)` now returns `null`; `any(document)` returns an empty collection. Use native document event listeners instead.
-- Move `fadeIn()` and `fadeOut()` into the bundled effects plugin without changing their behavior.
+- Remove `Document` support. Only HTML and SVG elements can be decorated. `me(document)` now returns `null`, `any(document)` returns an empty collection. Use native document event listeners instead.
+- Move `fadeIn()` and `fadeOut()` into `astro-surreal/plugins/effects` without changing their behavior.
 
 ## 0.0.2, 2026-09-15
 
 - Add `onPrevent()`, which calls `preventDefault()` before invoking the handler.
 - Pass the decorated listening element as the second argument to `on()` and `onPrevent()` handlers, so it remains available across `await`. Preserve callback `this` and infer event and element types.
 - Remove `off()`. Each `on()` or `onPrevent()` call now registers a separate wrapper, including repeated calls with the same handler. Use native `addEventListener()` and `removeEventListener()` when individual listener removal is needed.
-- Ship the props plugin with `passProps()` from `astro-surreal/plugins/props` and `element.props()` to serialize and read props through a `data-props` attribute using devalue.
-- Ship the each plugin with `element.each(items, template, callback)` to clone a single-root HTML template for each item and replace the container's children. Callbacks must be synchronous; validation or callback errors preserve existing children.
+- Add `astro-surreal/plugins/props` with `passProps()` and `element.props()` to serialize and read props through a `data-props` attribute using devalue.
+- Add `astro-surreal/plugins/each` with `element.each(items, template, callback)` to clone a single-root HTML template for each item and replace the container's children. Callbacks must be synchronous; validation or callback errors preserve existing children.
 
 ## 0.0.1, 2026-09-14
 
