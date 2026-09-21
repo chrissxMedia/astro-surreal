@@ -1,8 +1,6 @@
-export type SurrealNode = HTMLElement | SVGElement | Document;
+export type SurrealNode = HTMLElement | SVGElement;
 export type SurrealElement<T extends SurrealNode = HTMLElement | SVGElement> =
-  T &
-    SurrealMethods<T> &
-    ([T] extends [HTMLElement | SVGElement] ? ElementMethods : {});
+  T & SurrealMethods<T> & ElementMethods;
 export type SurrealArray<T extends SurrealNode = HTMLElement | SVGElement> =
   SurrealElement<T>[] & SurrealMethods<T, true>;
 

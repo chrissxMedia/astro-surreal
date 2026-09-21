@@ -55,7 +55,9 @@ Each `on()` or `onPrevent()` call adds a new wrapper, so repeated registrations 
 
 ## Templates and props
 
-Both methods below exist only on decorated HTML/SVG elements, excluding collections and `Document`.
+Both methods below exist only on decorated HTML/SVG elements, excluding collections.
+
+`Document` is unsupported. Use native document event listeners instead.
 
 ```ts
 container.each(items, template, (clone, item, index) => {

@@ -58,11 +58,13 @@ root.each([1, 2] as const, template, (clone, item, index) => {
 root.each([], template, async () => {});
 const props: Record<string, unknown> = root.props();
 const typedProps: { title: string } = root.props<{ title: string }>();
-for (const target of [buttons, me(document)]) {
-  // @ts-expect-error Only elements have props().
-  target.props();
-  // @ts-expect-error Only elements have each().
-  target.each([], template, () => {});
-}
+// @ts-expect-error Collections do not have props().
+buttons.props();
+// @ts-expect-error Collections do not have each().
+buttons.each([], template, () => {});
+// @ts-expect-error Documents cannot be decorated elements.
+export type DocumentElement = SurrealElement<Document>;
+// @ts-expect-error Collections cannot contain documents.
+export type DocumentArray = SurrealArray<Document>;
 me(document.createElementNS("http://www.w3.org/2000/svg", "svg")).props();
 void [props, typedProps];
