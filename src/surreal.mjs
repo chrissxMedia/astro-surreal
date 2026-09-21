@@ -203,7 +203,7 @@ let $ = { // Convenience for internals.
 	},
 	// ⚙️ Used internally. Is this an element / node?
 	isNode(e) {
-		return (e instanceof HTMLElement || e instanceof SVGElement || e instanceof Document) ? true : false
+		return (e instanceof HTMLElement || e instanceof SVGElement) ? true : false
 	},
 	// ⚙️ Used internally by DOM functions. Is this a list of elements / nodes?
 	isNodeList(e) {

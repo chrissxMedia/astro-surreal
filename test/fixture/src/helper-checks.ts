@@ -141,7 +141,5 @@ export async function checkHelpers(me: Me, any: Any) {
   buttons[0]!.removeEventListener("repeat", callback);
   buttons[0]!.send("repeat");
   equal(calls, 8);
-  for (const target of [buttons, me(document)]) {
-    equal("props" in target || "each" in target, false);
-  }
+  equal("props" in buttons || "each" in buttons, false);
 }

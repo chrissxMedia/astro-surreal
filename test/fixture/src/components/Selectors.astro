@@ -24,7 +24,9 @@
     root.attributes instanceof NamedNodeMap && typeof root.attr === "function",
   );
   check(Array.isArray(any().attr("id")));
-  check(!("attributes" in any()) && !("attributes" in me(document)));
+  check(!("attributes" in any()));
+  check(me(document) === null && any(document)?.length === 0);
+  check(!("hasSurreal" in document));
   check(!("off_all" in root) && !("trigger" in root));
   check(typeof root.offAll === "function" && typeof root.send === "function");
   for (const tag of ["prev", "previous"]) {
