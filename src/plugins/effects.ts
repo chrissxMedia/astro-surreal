@@ -1,4 +1,4 @@
-import surreal from "../surreal.mjs";
+import surreal from "../surreal.ts";
 
 // 🔌 Plugin: Effects
 export function pluginEffects(e: any) {
@@ -42,7 +42,7 @@ export function pluginEffects(e: any) {
         await tick();
         surreal.styles(e, { opacity: "1" });
         await sleep(ms, e);
-        e.style = save; // Revert back to original style.
+        Object.assign(e, { style: save }); // Revert back to original style.
         surreal.styles(e, { opacity: "1" }); // Ensure we're visible after reverting to original style.
         if (typeof f === "function") f(thing); // Run custom callback?
       })();

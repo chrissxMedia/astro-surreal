@@ -2,4 +2,4 @@ node_modules/
 dist/
 .astro/
 package-lock.json
-src/surreal.mjs
+src/surreal.ts

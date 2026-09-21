@@ -1,5 +1,5 @@
 import { parse, stringify } from "devalue";
-import type { SurrealElement } from "../types.ts";
+import type { SurrealElement } from "../surreal.ts";
 
 export function passProps(value: unknown) {
   return { "data-props": stringify(value) };

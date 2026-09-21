@@ -38,7 +38,7 @@ Each instance gets its own local variables. Other imports stay at module scope. 
 - Elements, arrays, and NodeLists can be passed directly. `me()` takes the first element of a collection, or returns `null` if empty.
 - `me(event)` and `any(event)` read `currentTarget`. After dispatch it is `null`; use the handler's element argument across `await`.
 
-Only explicit imports of `me` and `any` opt a script into the integration. Aliases work. Import helpers directly inside the Astro script; pass them as arguments to shared functions in `.ts` files. `Me`, `Any`, `SurrealElement`, and `SurrealArray` types are exported from `astro-surreal` and `astro-surreal/types`.
+Only explicit imports of `me` and `any` opt a script into the integration. Aliases work. Import helpers directly inside the Astro script; pass them as arguments to shared functions in `.ts` files. `Me`, `Any`, `SurrealElement`, and `SurrealArray` types are exported from `astro-surreal`.
 
 ## Events
 
