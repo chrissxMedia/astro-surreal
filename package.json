@@ -22,7 +22,6 @@
       "default": "./index.ts"
     },
     "./plugins/props": "./src/plugins/props.ts",
-    "./types": "./src/types.ts",
     "./runtime": "./src/runtime.ts"
   },
   "files": [

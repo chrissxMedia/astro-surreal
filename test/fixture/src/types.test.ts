@@ -68,3 +68,26 @@ export type DocumentElement = SurrealElement<Document>;
 export type DocumentArray = SurrealArray<Document>;
 me(document.createElementNS("http://www.w3.org/2000/svg", "svg")).props();
 void [props, typedProps];
+
+const chainedButton: SurrealElement<HTMLButtonElement> = me(
+  document.createElement("button"),
+)
+  .add_class("ready")
+  .toggleClass("active", true)
+  .styles({ opacity: "1" })
+  .on("click", (event) => event.clientX)
+  .attr({ title: "ready" })
+  .enable();
+const chainedButtons: SurrealArray<HTMLButtonElement> = buttons
+  .remove_class("ready")
+  .class_toggle("active")
+  .attribute("title", "ready")
+  .onPrevent("click", (event) => event.clientX)
+  .run((element) => element.click());
+const halted: MouseEvent = root.halt(new MouseEvent("click"));
+const removed: void = buttons.remove();
+// @ts-expect-error Class names must be strings.
+root.addClass(1);
+// @ts-expect-error Collection chaining must preserve the element type.
+buttons.enable().run((element) => element.href);
+void [chainedButton, chainedButtons, halted, removed];

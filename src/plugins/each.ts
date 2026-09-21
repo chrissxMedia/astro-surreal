@@ -1,5 +1,5 @@
-import surreal from "../surreal.mjs";
-import type { SurrealElement } from "../types.ts";
+import surreal from "../surreal.ts";
+import type { SurrealElement } from "../surreal.ts";
 
 export function pluginEach(node: unknown) {
   if (!(node instanceof HTMLElement || node instanceof SVGElement)) return;

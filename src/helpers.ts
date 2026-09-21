@@ -1,4 +1,4 @@
-import type { Me, Any } from "./types.ts";
+import type { Me, Any } from "./surreal.ts";
 
 function unbound(): never {
   throw new Error(
